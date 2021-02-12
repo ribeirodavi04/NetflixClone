@@ -1,0 +1,31 @@
+.movieRow{
+    margin-bottom: 30px;
+}
+.movieRow h2{
+    margin: 0px 0px 0px 30px;
+}
+.movieRow--listarea{
+    /*--- tudo que passar na horizontal(eixo x) será cortado---*/
+    overflow-x: hidden;
+    padding-left: 30px;
+}
+.movieRow--list{
+    width: 9999999px;
+}
+.movieRow--item{
+    /*--- Faz com que um item fique ao lado do outro---*/
+    display:inline-block;
+    width: 150px;
+    cursor: pointer;
+}
+.movieRow--item img{
+    width:100%;
+    /*--- faz com que a escala da imagem fique 90% dos 150px---*/
+    transform: scale(0.9);
+    /*---ease é a forma da animação com qualquer alteração que ocorra na div--*/
+    transition: all ease 0.3s;
+}
+.movieRow--item img:hover{
+    /*--- quando passar o mouse na imagem a escala dela vira 100% dos 150px---*/
+    transform: scale(1);
+}
