@@ -3,10 +3,13 @@ import './App.css';
 import Tmdb from './Tmdb';
 import MovieRow from './components/MovieRow/MovieRow';
 import FeaturedMovie from './components/FeaturedMovie/FeaturedMovie';
+import Header from './components/Header/Header';
+
 function App() {
   
   const [movieList, setMovieList] = useState([]);
   const [featuredData, setFeaturedData] = useState(null);
+  const [blackHeader, setBlackHeader] = useState(false);
 
   useEffect(()=>{
     const loadAll = async()=>{
@@ -21,15 +24,29 @@ function App() {
       let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
       
       setFeaturedData(chosenInfo);
-      console.log(featuredData);
+      console.log(movieList);
     }
 
     loadAll();
   }, []);
 
+  useEffect(()=>{
+    const scrollListener = ()=>{
+      if(window.scrollY > 10){
+        setBlackHeader(true)
+      }else{
+        setBlackHeader(false)
+      }
+    }
+    window.addEventListener('scroll', scrollListener);
+    return ()=>{
+      window.removeEventListener('scroll', scrollListener);
+    }
+  }, [])
+
   return (
     <div className="page">
-
+      <Header black={blackHeader}/>
       {featuredData && 
         < FeaturedMovie item={featuredData}/>
       }
@@ -39,6 +56,10 @@ function App() {
           <MovieRow key={key} title={item.title} items={item.items}/>
         ))}
       </section>
+      <footer>
+        Direitos de imagem para Netflix<br/>
+        Dados pegos do site TheMoviedb.org
+      </footer>
     </div>
   );
 }
